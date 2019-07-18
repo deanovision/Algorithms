@@ -9,17 +9,16 @@ def recipe_batches(recipe, ingredients):
     max_whole_batches = None
     for ingredient_name, amount in recipe.items():
         # if greater divide key value on ingredients by key value on recipe to max batches from that one ingredients
-        try:
-            if ingredients[ingredient_name] >= recipe[ingredient_name]:
-                # setup variable to track max batches, keep the lowest max batch number from all ingredients
-                # and return that number
-                if max_whole_batches == None:
-                    max_whole_batches = ingredients[ingredient_name] // amount
-                elif max_whole_batches > ingredients[ingredient_name] // amount:
-                    max_whole_batches = ingredients[ingredient_name] // amount
-        except KeyError:
+        if ingredients.get(ingredient_name) is not None and ingredients[ingredient_name] >= recipe[ingredient_name]:
+            # setup variable to track max batches, keep the lowest max batch number from all ingredients
+            # and return that number
+            if max_whole_batches == None:
+                max_whole_batches = ingredients[ingredient_name] // amount
+            elif max_whole_batches > ingredients[ingredient_name] // amount:
+                max_whole_batches = ingredients[ingredient_name] // amount
+        else:
             max_whole_batches = 0
-            return max_whole_batches
+
     return max_whole_batches
 
 
