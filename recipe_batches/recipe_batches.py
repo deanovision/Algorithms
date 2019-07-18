@@ -3,19 +3,24 @@
 import math
 
 
-# def recipe_batches(recipe, ingredients):
-#     max_whole_batches = 0
-#     # loop through ingredients and check if the matching key value in recipe is equal or greater
-#     for ingredient_name, amount in ingredients.items():
-#         # if greater divide key value on ingredients by key value on recipe to max batches from that one ingredients
-#         if ingredients[ingredient_name] >= recipe[ingredient_name]:
-#             # setup variable to track max batches, keep the lowest max batch number from all ingredients
-#             # and return that number
-#             if max_whole_batches == 0:
-#             max_whole_batches = amount > recipe[ingredient_name] // 2
-#             elif max
+def recipe_batches(recipe, ingredients):
 
-#     return max_whole_batches
+    # loop through ingredients and check if the matching key value in recipe is equal or greater
+    max_whole_batches = None
+    for ingredient_name, amount in recipe.items():
+        # if greater divide key value on ingredients by key value on recipe to max batches from that one ingredients
+        try:
+            if ingredients[ingredient_name] >= recipe[ingredient_name]:
+                # setup variable to track max batches, keep the lowest max batch number from all ingredients
+                # and return that number
+                if max_whole_batches == None:
+                    max_whole_batches = ingredients[ingredient_name] // amount
+                elif max_whole_batches > ingredients[ingredient_name] // amount:
+                    max_whole_batches = ingredients[ingredient_name] // amount
+        except KeyError:
+            max_whole_batches = 0
+            return max_whole_batches
+    return max_whole_batches
 
 
 if __name__ == '__main__':
@@ -23,5 +28,7 @@ if __name__ == '__main__':
     # your implementation with different inputs
     recipe = {'milk': 100, 'butter': 50, 'flour': 5}
     ingredients = {'milk': 132, 'butter': 48, 'flour': 51}
+    # recipe = {'milk': 100, 'flour': 4, 'sugar': 10, 'butter': 5}
+    # ingredients = {'milk': 1288, 'flour': 9, 'sugar': 95}
     print("{batches} batches can be made from the available ingredients: {ingredients}.".format(
         batches=recipe_batches(recipe, ingredients), ingredients=ingredients))
